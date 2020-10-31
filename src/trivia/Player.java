@@ -3,11 +3,26 @@ package trivia;
 public class Player {
     private int score;
 
-    public int updateScore(int points) {
+    public Player() {
+        new Player(0);
+    }
+
+    public Player(int scoreIn) {
+        score = scoreIn;
+    }
+
+    private int updateScore() {
+        return updateScore(1);
+    }
+
+    private int updateScore(int points) {
         return 0;
     }
 
-    public int handleGuess(String guess) {
-        return 0;
+    public int handleGuess(String guess, Question q) {
+        if (q.isCorrect(guess)) {
+            updateScore();
+        }
+        return score;
     }
 }
