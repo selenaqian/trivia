@@ -46,4 +46,9 @@ class QuestionTest {
         assertFalse(test1.isCorrect("4"));
         assertTrue(test1.isCorrect("8"));
     }
+
+    @Test
+    void testGetCorrect() {
+        assertEquals("8", test1.getCorrect());
+    }
 }

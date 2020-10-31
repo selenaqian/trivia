@@ -19,8 +19,7 @@ class TriviaGameTest {
     private String score;
     private String incorrect;
     private String finalText;
-    private String invalid;
-    
+
     @BeforeEach
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
@@ -31,7 +30,6 @@ class TriviaGameTest {
         score = properties.getString("score");
         incorrect = properties.getString("incorrect");
         finalText = properties.getString("final");
-        invalid = properties.getString("invalidAnswer");
     }
 
     @AfterEach
@@ -50,7 +48,20 @@ class TriviaGameTest {
         game.play(1, 1);
         Question q = askTest.selectQuestion(1);
         StringBuilder answers = getAnswerChoicesString(q);
-        assertEquals(String.format("%s\n1. %s\n%s%s \n%s\n%s 1", introduction, q.getPrompt(), answers, yourAnswer, correct, finalText), outContent.toString());
+        assertEquals(String.format("%s\n1. %s\n%s%s\n%s\n%s 1\n%s 1\n", introduction, q.getPrompt(), answers, yourAnswer, correct, score, finalText), outContent.toString());
+    }
+
+    @Test
+    void testPlay1QOrderedIncorrect() throws IOException, ParseException {
+        Asker ask = new OrderedAsker("data/test/test-1question.json");
+        Asker askTest = new OrderedAsker("data/test/test-1question.json");
+        TriviaGame game = new TriviaGame(ask, new Player());
+        System.setIn(new ByteArrayInputStream("B".getBytes()));
+
+        game.play(1, 1);
+        Question q = askTest.selectQuestion(1);
+        StringBuilder answers = getAnswerChoicesString(q);
+        assertEquals(String.format("%s\n1. %s\n%s%s\n%s %s\n%s 0\n%s 0\n", introduction, q.getPrompt(), answers, yourAnswer, incorrect, q.getCorrect(), score, finalText), outContent.toString());
     }
 
     private StringBuilder getAnswerChoicesString(Question q) {

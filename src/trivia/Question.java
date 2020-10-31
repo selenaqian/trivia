@@ -32,4 +32,8 @@ public class Question {
     public Boolean isCorrect(String guess) {
         return guess.equals(correct);
     }
+
+    public String getCorrect() {
+        return correct;
+    }
 }
