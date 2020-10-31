@@ -13,10 +13,4 @@ public interface Asker {
      * @return String containing question and list of answer choices.
      */
     public String selectQuestion(int randomSeed);
-
-    /**
-     * Reads in questions from a JSON data file. Parses out each question and creates data structures to hold them accordingly.
-     * @param filename the file to read data from.
-     */
-    public void readData(String filename) throws IOException, ParseException;
 }
