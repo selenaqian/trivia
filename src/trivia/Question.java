@@ -1,6 +1,8 @@
 package trivia;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Question {
     private String prompt;
@@ -14,7 +16,7 @@ public class Question {
     }
 
     public String getPrompt() {
-        return null;
+        return prompt;
     }
 
     public List<String> getAnswerChoices() {
@@ -22,10 +24,16 @@ public class Question {
     }
 
     public List<String> getAnswerChoices(int randomSeed) {
-        return null;
+        List<String> allAnswers = new ArrayList<>();
+        allAnswers.addAll(incorrect);
+
+        int random = new Random(randomSeed).nextInt(incorrect.size());
+        allAnswers.add(random, correct);
+
+        return allAnswers;
     }
 
     public Boolean isCorrect(String guess) {
-        return false;
+        return guess.equals(correct);
     }
 }
