@@ -20,16 +20,10 @@ public class RandomAsker implements Asker {
      * @return formatted string with question prompt and answer choices.
      */
     @Override
-    public String selectQuestion(int randomSeed) {
+    public Question selectQuestion(int randomSeed) {
         int index = new Random(randomSeed).nextInt(remaining.size());
-        String prompt = remaining.get(index).getPrompt();
-        StringBuilder answers = new StringBuilder();
-        Character option = 'A';
-        for (String ans : remaining.get(index).getAnswerChoices(randomSeed)) {
-            answers.append(String.format("%c. %s\n", option, ans));
-            option++;
-        }
+        Question selected = remaining.get(index);
         remaining.remove(index);
-        return String.format("%s\n%s", prompt, answers);
+        return selected;
     }
 }

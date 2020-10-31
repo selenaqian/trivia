@@ -58,7 +58,7 @@ class TriviaGameTest {
         StringBuilder expected = new StringBuilder();
         expected.append(String.format("%s\n", introduction));
         for (int i = 0; i < 3; i++) {
-            expected.append(String.format("%d. %s\n%s \n%s\n", i+1, askTest.selectQuestion(1), yourAnswer, correct));
+            expected.append(String.format("%d. %s\n%s \n%s\n%s %d\n", i+1, askTest.selectQuestion(1), yourAnswer, correct, score, i+1));
         }
         expected.append(String.format("%s 3", score));
         assertEquals(expected, outContent.toString());
@@ -74,7 +74,7 @@ class TriviaGameTest {
         StringBuilder expected = new StringBuilder();
         expected.append(String.format("%s\n", introduction));
         for (int i = 0; i < 3; i++) {
-            expected.append(String.format("%d. %s\n%s \n%s\n", i+1, askTest.selectQuestion(1), yourAnswer, correct));
+            expected.append(String.format("%d. %s\n%s \n%s\n%s %d\n", i+1, askTest.selectQuestion(1), yourAnswer, correct, score, i+1));
         }
         expected.append(String.format("%s 3", score));
         assertEquals(expected, outContent.toString());
