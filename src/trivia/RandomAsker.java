@@ -2,7 +2,7 @@ package trivia;
 
 public class RandomAsker implements Asker {
     @Override
-    public String selectQuestion() {
+    public String selectQuestion(int randomSeed) {
         return null;
     }
 
