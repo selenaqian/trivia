@@ -21,4 +21,9 @@ class RandomAskerTest {
         assertEquals("A group of tigers are referred to as:\nA. Ambush\nB. Chowder\nC. Pride\nD. Destruction\n", ask.selectQuestion(1));
         assertEquals("In Shakespeare's play Julius Caesar, Caesar's last words were...\nA. Et tu, Brute?\nB. Iacta alea est!\nC. Vidi, vini, vici\nD. Aegri somnia vana\n", ask.selectQuestion(1));
     }
+
+    @Test
+    void testMissingFile() {
+        assertThrows(IOException.class, () -> new RandomAsker("data/test/fake.json"));
+    }
 }
