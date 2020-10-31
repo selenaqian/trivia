@@ -26,4 +26,9 @@ class OrderedAskerTest {
     void testMissingFile() {
         assertThrows(IOException.class, () -> new RandomAsker("data/test/fake.json"));
     }
+
+    @Test
+    void testParseError() {
+        assertThrows(ParseException.class, () -> new RandomAsker("data/test/badjson.json"));
+    }
 }
