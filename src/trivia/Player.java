@@ -11,19 +11,12 @@ public class Player {
         score = scoreIn;
     }
 
-    private int updateScore() {
+    public int updateScore() {
         return updateScore(1);
     }
 
-    private int updateScore(int points) {
+    public int updateScore(int points) {
         score+=points;
-        return score;
-    }
-
-    public int handleGuess(String guess, Question q) {
-        if (q.isCorrect(guess)) {
-            updateScore();
-        }
         return score;
     }
 }
