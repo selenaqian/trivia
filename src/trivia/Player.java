@@ -16,7 +16,8 @@ public class Player {
     }
 
     private int updateScore(int points) {
-        return 0;
+        score+=points;
+        return score;
     }
 
     public int handleGuess(String guess, Question q) {
