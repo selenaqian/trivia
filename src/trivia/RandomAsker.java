@@ -1,15 +1,10 @@
 package trivia;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class RandomAsker implements Asker {
     List<Question> remaining;
@@ -26,6 +21,15 @@ public class RandomAsker implements Asker {
      */
     @Override
     public String selectQuestion(int randomSeed) {
-        return null;
+        int index = new Random(randomSeed).nextInt(remaining.size());
+        String prompt = remaining.get(index).getPrompt();
+        StringBuilder answers = new StringBuilder();
+        Character option = 'A';
+        for (String ans : remaining.get(index).getAnswerChoices(randomSeed)) {
+            answers.append(String.format("%c. %s\n", option, ans));
+            option++;
+        }
+        remaining.remove(index);
+        return String.format("%s\n%s", prompt, answers);
     }
 }
