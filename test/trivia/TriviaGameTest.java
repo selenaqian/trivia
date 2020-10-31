@@ -41,22 +41,40 @@ class TriviaGameTest {
     @Test
     void testPlay1QOrdered() throws IOException, ParseException {
         Asker ask = new OrderedAsker("data/test/test-1question.json");
+        Asker askTest = new OrderedAsker("data/test/test-1question.json");
         TriviaGame game = new TriviaGame(ask, new Player());
         System.setIn(new ByteArrayInputStream("A".getBytes()));
         game.play(1, 1);
-        assertEquals(String.format("%s\n1. %s\n%s \n%s\n%s 1", introduction, ask.selectQuestion(1), yourAnswer, correct, finalText), outContent.toString());
+        assertEquals(String.format("%s\n1. %s\n%s \n%s\n%s 1", introduction, askTest.selectQuestion(1), yourAnswer, correct, finalText), outContent.toString());
     }
 
     @Test
     void testPlay3QOrdered() throws IOException, ParseException {
         Asker ask = new OrderedAsker("data/test/test-3questions.json");
+        Asker askTest = new OrderedAsker("data/test/test-3questions.json");
         TriviaGame game = new TriviaGame(ask, new Player());
         System.setIn(new ByteArrayInputStream("AAA".getBytes()));
         game.play(3, 1);
         StringBuilder expected = new StringBuilder();
         expected.append(String.format("%s\n", introduction));
         for (int i = 0; i < 3; i++) {
-            expected.append(String.format("%d. %s\n%s \n%s\n", i+1, ask.selectQuestion(1), yourAnswer, correct));
+            expected.append(String.format("%d. %s\n%s \n%s\n", i+1, askTest.selectQuestion(1), yourAnswer, correct));
+        }
+        expected.append(String.format("%s 3", score));
+        assertEquals(expected, outContent.toString());
+    }
+
+    @Test
+    void testPlay3QRandom() throws IOException, ParseException {
+        Asker ask = new RandomAsker("data/test/test-3questions.json");
+        Asker askTest = new RandomAsker("data/test/test-3questions.json");
+        TriviaGame game = new TriviaGame(ask, new Player());
+        System.setIn(new ByteArrayInputStream("AAA".getBytes()));
+        game.play(3, 1);
+        StringBuilder expected = new StringBuilder();
+        expected.append(String.format("%s\n", introduction));
+        for (int i = 0; i < 3; i++) {
+            expected.append(String.format("%d. %s\n%s \n%s\n", i+1, askTest.selectQuestion(1), yourAnswer, correct));
         }
         expected.append(String.format("%s 3", score));
         assertEquals(expected, outContent.toString());
