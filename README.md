@@ -16,3 +16,5 @@ focus on creating clean, tested code rather than working on a user interface.
 some other method of determining how hard a question is.
 * Multiplayer - I could see this also being extended into something web-based or otherwise that allows for multiple people
 to be playing the same set of questions and getting a ranking at the end.
+* If didn't have assumptions for 10 questions per round and all multiple choice, would be fairly easy to add in a settable
+parameter for the number of questions, and would be interesting to learn about evaluation of short answer type questions.
