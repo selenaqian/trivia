@@ -4,7 +4,7 @@ public class TriviaGame {
     private Asker ask;
     private Player user;
 
-    public TriviaGame (Asker inputAsk, Player inputUser) {
+    public TriviaGame (Asker askIn, Player userIn) {
 
     }
 
