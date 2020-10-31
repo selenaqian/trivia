@@ -24,16 +24,16 @@ class QuestionTest {
     }
 
     @Test
-    void testGetAnswerChoicesDefaultRandom() {
+    void testGetAnswerChoicesRandomSeed1() {
         List<String> expected = new ArrayList<>();
         expected.addAll(Arrays.asList(new String[]{"12", "54", "3"}));
         int random = new Random(1).nextInt(expected.size());
         expected.add(random, "8");
-        assertEquals(expected, test1.getAnswerChoices());
+        assertEquals(expected, test1.getAnswerChoices(1));
     }
 
     @Test
-    void testGetAnswerChoicesRandomSeed() {
+    void testGetAnswerChoicesRandomSeed3() {
         List<String> expected = new ArrayList<>();
         expected.addAll(Arrays.asList(new String[]{"12", "54", "3"}));
         int random = new Random(3).nextInt(expected.size());

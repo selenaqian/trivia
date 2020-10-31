@@ -19,10 +19,6 @@ public class Question {
         return prompt;
     }
 
-    public List<String> getAnswerChoices() {
-        return getAnswerChoices(1);
-    }
-
     public List<String> getAnswerChoices(int randomSeed) {
         List<String> allAnswers = new ArrayList<>();
         allAnswers.addAll(incorrect);
