@@ -24,7 +24,7 @@ class OrderedAskerTest {
         ask.selectQuestion(1);
         Question second = ask.selectQuestion(1);
         Question third = ask.selectQuestion(1);
-        
+
         assertEquals("In Shakespeare's play Julius Caesar, Caesar's last words were...", second.getPrompt());
         assertEquals("Et tu, Brute?", second.getAnswerChoices(1).get(0));
         assertEquals("Iacta alea est!", second.getAnswerChoices(1).get(1));

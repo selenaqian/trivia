@@ -45,7 +45,9 @@ class TriviaGameTest {
         TriviaGame game = new TriviaGame(ask, new Player());
         System.setIn(new ByteArrayInputStream("A".getBytes()));
         game.play(1, 1);
-        assertEquals(String.format("%s\n1. %s\n%s \n%s\n%s 1", introduction, askTest.selectQuestion(1), yourAnswer, correct, finalText), outContent.toString());
+        Question q = askTest.selectQuestion(1);
+        StringBuilder answers = getAnswerChoicesString(q);
+        assertEquals(String.format("%s\n1. %s\n%s%s \n%s\n%s 1", introduction, q.getPrompt(), answers, yourAnswer, correct, finalText), outContent.toString());
     }
 
     @Test
@@ -58,7 +60,9 @@ class TriviaGameTest {
         StringBuilder expected = new StringBuilder();
         expected.append(String.format("%s\n", introduction));
         for (int i = 0; i < 3; i++) {
-            expected.append(String.format("%d. %s\n%s \n%s\n%s %d\n", i+1, askTest.selectQuestion(1), yourAnswer, correct, score, i+1));
+            Question q = askTest.selectQuestion(1);
+            StringBuilder answers = getAnswerChoicesString(q);
+            expected.append(String.format("%d. %s\n%s%s \n%s\n%s %d\n", i+1, q.getPrompt(), answers, yourAnswer, correct, score, i+1));
         }
         expected.append(String.format("%s 3", score));
         assertEquals(expected, outContent.toString());
@@ -74,9 +78,21 @@ class TriviaGameTest {
         StringBuilder expected = new StringBuilder();
         expected.append(String.format("%s\n", introduction));
         for (int i = 0; i < 3; i++) {
-            expected.append(String.format("%d. %s\n%s \n%s\n%s %d\n", i+1, askTest.selectQuestion(1), yourAnswer, correct, score, i+1));
+            Question q = askTest.selectQuestion(1);
+            StringBuilder answers = getAnswerChoicesString(q);
+            expected.append(String.format("%d. %s\n%s%s \n%s\n%s %d\n", i+1, q.getPrompt(), answers, yourAnswer, correct, score, i+1));
         }
         expected.append(String.format("%s 3", score));
         assertEquals(expected, outContent.toString());
+    }
+
+    private StringBuilder getAnswerChoicesString(Question q) {
+        StringBuilder answers = new StringBuilder();
+        Character option = 'A';
+        for (String ans : q.getAnswerChoices(1)) {
+            answers.append(String.format("%c. %s\n", option, ans));
+            option++;
+        }
+        return answers;
     }
 }
