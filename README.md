@@ -2,6 +2,25 @@
 Trivia game created for Tandem code challenge.
 
 ## How to Run
+Uses [OpenJDK 14 full](https://bell-sw.com/pages/downloads/?version=java-14) version.
+
+1. In a command line, navigate to the root of this repository (trivia, containing src, test, etc.).
+1. Inside that folder, there is a trivia.jar file. Run ```java -jar trivia.jar```. This should start the program.
+1. It will first ask whether you want to see the questions in order or in a random order. Enter a or b (can be lower or
+uppercase). If an invalid input is entered, the program should catch that.
+1. Then, you should see a welcome message and the first question. Enter your answer. Again, it should catch invalid inputs
+and prompt you with what you should enter instead.
+1. After each question, it will tell you if you were correct or incorrect (with correct answer) and show your updated score.
+1. After 10 questions, the program will end and show your total score.
+
+Running JUnit Tests:
+
+It's easiest to run the JUnit tests from an IDE (I currently use IntelliJ). In order to run from the command line,
+1. Compile all of the classes and test classes using ```javac <classname>``` when in the directory. Put all of these classes
+in the test/trivia directory.
+1. Download this jar file for the console launcher: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.0/junit-platform-console-standalone-1.7.0.jar
+1. Run ```java -jar junit-platform-console-standalone-1.7.0.jar --cp :trivia --scan-classpath```. Currently, this only discovers
+the PlayerTest and QuestionTest classes and runs those (not sure why).
 
 ## Assumptions
 * 10 questions per trivia round
