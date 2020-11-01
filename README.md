@@ -26,7 +26,7 @@ the PlayerTest and QuestionTest classes and runs those (not sure why).
 * 10 questions per trivia round
 * all questions are multiple choice
 * data in json is formatted in a list of objects, each object containing a "question", "incorrect", and "correct" property
-    * program does(will) account for potential data issues and will display a message to users
+    * program does account for potential data issues and will display a message to users
 
 ## Desired Potential Additional Features
 * UI - I have experience working with javaFX (see [moono project](https://github.com/selenaqian/moono)), but I chose to
