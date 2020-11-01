@@ -37,7 +37,7 @@ public class TriviaGame {
 
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
-            if (input.length() > 1 || !Character.isAlphabetic(input.charAt(0)) || input.toUpperCase().charAt(0) - 'A' >= answerChoices.size()) {
+            if (input.length() != 1 || !Character.isAlphabetic(input.charAt(0)) || input.toUpperCase().charAt(0) - 'A' >= answerChoices.size()) {
                 System.out.println(resources.getString("invalidAnswer"));
             }
             else {
