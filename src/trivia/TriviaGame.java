@@ -25,34 +25,53 @@ public class TriviaGame {
         int i = 0;
         Question q = ask.selectQuestion(randomSeed);
         while (i < numberQuestions) {
-            String prompt = q.getPrompt();
-            StringBuilder answers = new StringBuilder();
-            Character option = 'A';
-            for (String ans : q.getAnswerChoices(randomSeed)) {
-                answerChoices.put(option.toString(), ans);
-                answers.append(String.format("%c. %s\n", option, ans));
-                option++;
-            }
-            System.out.println(String.format("%d. %s\n%s%s", i+1, prompt, answers, resources.getString("yourAnswer")));
-
-            Scanner in = new Scanner(System.in);
-            String input = in.nextLine();
-            if (input.length() != 1 || !Character.isAlphabetic(input.charAt(0)) || input.toUpperCase().charAt(0) - 'A' >= answerChoices.size()) {
-                System.out.println(resources.getString("invalidAnswer"));
-            }
-            else {
-                i++;
+            printQuestion(randomSeed, i, q);
+            String input = getInput();
+            if (isValidAnswer(input)) {
                 if (q.isCorrect(answerChoices.get(input.toUpperCase()))) {
-                    System.out.println(resources.getString("correct"));
-                    System.out.println(String.format("%s %d", resources.getString("score"), user.updateScore()));
+                    printAnswerResponse(resources.getString("correct"), 1);
                 }
                 else {
-                    System.out.println(String.format("%s %s", resources.getString("incorrect"), q.getCorrect()));
-                    System.out.println(String.format("%s %d", resources.getString("score"), user.updateScore(0)));
+                    printAnswerResponse(String.format("%s %s", resources.getString("incorrect"), q.getCorrect()), 0);
                 }
+                i++;
                 if (i < numberQuestions) q = ask.selectQuestion(randomSeed);
+            }
+            else {
+                System.out.println(resources.getString("invalidAnswer"));
             }
         }
         System.out.println(String.format("%s %d", resources.getString("final"), user.updateScore(0)));
+    }
+
+    private String getInput() {
+        Scanner in = new Scanner(System.in);
+        return in.nextLine();
+    }
+
+    private void printQuestion(int randomSeed, int i, Question q) {
+        String prompt = q.getPrompt();
+        StringBuilder answers = formatAnswers(randomSeed, q);
+        System.out.println(String.format("%d. %s\n%s%s", i+1, prompt, answers, resources.getString("yourAnswer")));
+    }
+
+    private void printAnswerResponse(String response, int points) {
+        System.out.println(response);
+        System.out.println(String.format("%s %d", resources.getString("score"), user.updateScore(points)));
+    }
+
+    private boolean isValidAnswer(String input) {
+        return input.length() == 1 && Character.isAlphabetic(input.charAt(0)) && input.toUpperCase().charAt(0) - 'A' < answerChoices.size();
+    }
+
+    private StringBuilder formatAnswers(int randomSeed, Question q) {
+        StringBuilder answers = new StringBuilder();
+        Character option = 'A';
+        for (String ans : q.getAnswerChoices(randomSeed)) {
+            answerChoices.put(option.toString(), ans);
+            answers.append(String.format("%c. %s\n", option, ans));
+            option++;
+        }
+        return answers;
     }
 }

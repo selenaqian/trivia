@@ -18,3 +18,5 @@ some other method of determining how hard a question is.
 to be playing the same set of questions and getting a ranking at the end.
 * If didn't have assumptions for 10 questions per round and all multiple choice, would be fairly easy to add in a settable
 parameter for the number of questions, and would be interesting to learn about evaluation of short answer type questions.
+Could also add in more aspects for the user to choose at the start, such as what file of questions they want to use, how many
+points each question should be worth, etc.
