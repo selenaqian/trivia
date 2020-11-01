@@ -13,19 +13,23 @@ public class TriviaGame {
         ask = askIn;
         user = userIn;
         resources = ResourceBundle.getBundle(DEFAULT_RESOURCES);
-        answerChoices = new HashMap<>();
     }
 
     public void play() {
         play(10, new Random().nextInt());
     }
 
-    public void play(int numberQuestions, int randomSeed) {
+    public void play(int numberQuestions, int randomQuestion) {
+        play(numberQuestions, randomQuestion, new Random());
+    }
+
+    public void play(int numberQuestions, int randomQuestion, Random randomAnswerOrder) {
         System.out.println(resources.getString("introduction"));
         int i = 0;
-        Question q = ask.selectQuestion(randomSeed);
+        Question q = ask.selectQuestion(randomQuestion);
         while (i < numberQuestions) {
-            printQuestion(randomSeed, i, q);
+            answerChoices = new HashMap<>();
+            printQuestion(i, q, randomAnswerOrder.nextInt());
             String input = getInput();
             if (isValidAnswer(input)) {
                 if (q.isCorrect(answerChoices.get(input.toUpperCase()))) {
@@ -35,7 +39,7 @@ public class TriviaGame {
                     printAnswerResponse(String.format("%s %s", resources.getString("incorrect"), q.getCorrect()), 0);
                 }
                 i++;
-                if (i < numberQuestions) q = ask.selectQuestion(randomSeed);
+                if (i < numberQuestions) q = ask.selectQuestion(randomQuestion);
             }
             else {
                 System.out.println(resources.getString("invalidAnswer"));
@@ -49,9 +53,9 @@ public class TriviaGame {
         return in.nextLine();
     }
 
-    private void printQuestion(int randomSeed, int i, Question q) {
+    private void printQuestion(int i, Question q, int randomSeed) {
         String prompt = q.getPrompt();
-        StringBuilder answers = formatAnswers(randomSeed, q);
+        StringBuilder answers = formatAnswers(q, randomSeed);
         System.out.println(String.format("%d. %s\n%s%s", i+1, prompt, answers, resources.getString("yourAnswer")));
     }
 
@@ -64,7 +68,7 @@ public class TriviaGame {
         return input.length() == 1 && Character.isAlphabetic(input.charAt(0)) && input.toUpperCase().charAt(0) - 'A' < answerChoices.size();
     }
 
-    private StringBuilder formatAnswers(int randomSeed, Question q) {
+    private StringBuilder formatAnswers(Question q, int randomSeed) {
         StringBuilder answers = new StringBuilder();
         Character option = 'A';
         for (String ans : q.getAnswerChoices(randomSeed)) {

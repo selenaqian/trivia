@@ -4,6 +4,7 @@ import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.*;
 
 import java.io.*;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,9 +44,9 @@ class TriviaGameTest {
         Asker ask = new OrderedAsker("data/test/test-1question.json");
         Asker askTest = new OrderedAsker("data/test/test-1question.json");
         TriviaGame game = new TriviaGame(ask, new Player());
-        System.setIn(new ByteArrayInputStream("A".getBytes()));
+        System.setIn(new ByteArrayInputStream("C".getBytes()));
 
-        game.play(1, 1);
+        game.play(1, 1, new Random(1));
         Question q = askTest.selectQuestion(1);
         StringBuilder answers = getAnswerChoicesString(q);
         assertEquals(String.format("%s\n1. %s\n%s%s\n%s\n%s 1\n%s 1\n", introduction, q.getPrompt(), answers, yourAnswer, correct, score, finalText), outContent.toString());
@@ -58,7 +59,7 @@ class TriviaGameTest {
         TriviaGame game = new TriviaGame(ask, new Player());
         System.setIn(new ByteArrayInputStream("B".getBytes()));
 
-        game.play(1, 1);
+        game.play(1, 1, new Random(1));
         Question q = askTest.selectQuestion(1);
         StringBuilder answers = getAnswerChoicesString(q);
         assertEquals(String.format("%s\n1. %s\n%s%s\n%s %s\n%s 0\n%s 0\n", introduction, q.getPrompt(), answers, yourAnswer, incorrect, q.getCorrect(), score, finalText), outContent.toString());
@@ -67,7 +68,7 @@ class TriviaGameTest {
     private StringBuilder getAnswerChoicesString(Question q) {
         StringBuilder answers = new StringBuilder();
         Character option = 'A';
-        for (String ans : q.getAnswerChoices(1)) {
+        for (String ans : q.getAnswerChoices(new Random(1).nextInt())) {
             answers.append(String.format("%c. %s\n", option, ans));
             option++;
         }
